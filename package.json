@@ -1,0 +1,54 @@
+{
+  "name": "yt-transcribe-app",
+  "version": "1.0.0",
+  "description": "Paste a YouTube link, get a PDF transcript. Runs locally.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:runtime": "bash scripts/build-runtime.sh",
+    "dist": "bash scripts/make-dmg.sh",
+    "dist:mac": "bash scripts/make-dmg.sh",
+    "dist:win": "electron-builder --win",
+    "dist:linux": "electron-builder --linux"
+  },
+  "author": "Caleb Arzie",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^37.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.nwh.yttranscribe",
+    "productName": "YT Transcribe",
+    "files": [
+      "src/**/*",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}"
+    ],
+    "extraResources": [
+      {
+        "from": "python",
+        "to": "python",
+        "filter": ["**/*", "!.venv/**", "!**/__pycache__/**", "!**/*.pyc", "!**/*.pyo"]
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.icns",
+      "target": ["dmg", "zip"],
+      "identity": null,
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "dmg": {
+      "title": "${productName} ${version}",
+      "icon": "build/icon.icns",
+      "window": { "width": 540, "height": 380 },
+      "contents": [
+        { "x": 150, "y": 190, "type": "file" },
+        { "x": 390, "y": 190, "type": "link", "path": "/Applications" }
+      ]
+    },
+    "win": { "target": ["nsis"] },
+    "linux": { "target": ["AppImage"], "category": "Utility" }
+  }
+}
