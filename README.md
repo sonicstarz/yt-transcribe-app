@@ -7,7 +7,7 @@
 **Paste a YouTube link → get a clean PDF transcript.**
 Runs 100% locally. No API key, no account, no sign-up.
 
-[![Download for macOS](https://img.shields.io/badge/Download-macOS%20Apple%20Silicon-ffb627?style=for-the-badge&logo=apple&logoColor=black)](https://github.com/soncstarz/yt-transcribe-app/releases/latest/download/YT.Transcribe-1.0.0-arm64.dmg)
+[![Download for macOS](https://img.shields.io/badge/Download-macOS%20Apple%20Silicon-ffb627?style=for-the-badge&logo=apple&logoColor=black)](https://github.com/sonicstarz/yt-transcribe-app/releases/latest/download/YT-Transcribe-1.0.0-arm64.dmg)
 
 <sub>macOS 12+ · Apple Silicon (M1/M2/M3/M4) · ~207 MB</sub>
 
@@ -17,7 +17,7 @@ Runs 100% locally. No API key, no account, no sign-up.
 
 ## Download & install (macOS)
 
-1. **[Download the .dmg](https://github.com/soncstarz/yt-transcribe-app/releases/latest)** from the latest release.
+1. **[Download the .dmg](https://github.com/sonicstarz/yt-transcribe-app/releases/latest)** from the latest release.
 2. Open it and drag **YT Transcribe** into **Applications**.
 3. **First launch:** because the app isn't signed with a paid Apple Developer
    certificate, macOS will warn that it "can't verify the developer." This is
@@ -68,7 +68,7 @@ Requires **Node 18+** on macOS Apple Silicon. The heavy runtime is *not* in the
 repo — a script fetches and assembles it.
 
 ```bash
-git clone https://github.com/soncstarz/yt-transcribe-app.git
+git clone https://github.com/sonicstarz/yt-transcribe-app.git
 cd yt-transcribe-app
 ./setup.sh          # builds python/runtime + ffmpeg, installs Electron
 npm start           # run from source
