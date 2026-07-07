@@ -1,6 +1,6 @@
 {
   "name": "yt-transcribe-app",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Paste a YouTube link, get a PDF transcript. Runs locally.",
   "main": "src/main.js",
   "scripts": {

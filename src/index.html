@@ -83,6 +83,45 @@
   .update-msg .ok { color: var(--ok); }
   .foot-note { opacity: .7; }
   .hint { font-size: 11.5px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  .hint a { color: var(--accent-2); text-decoration: underline; cursor: pointer; }
+
+  .result.send { margin-top: 10px; }
+  .send-msg { font-size: 12px; color: var(--muted); margin-top: 8px; min-height: 0; }
+  .send-msg a { color: var(--accent-2); cursor: pointer; text-decoration: underline; }
+  .send-msg .ok { color: var(--ok); }
+
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 50;
+    display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-backdrop.show { display: flex; }
+  .modal {
+    width: 100%; max-width: 440px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; max-height: 90vh; overflow: auto;
+  }
+  .modal-head {
+    display: flex; align-items: center; justify-content: space-between; padding: 15px 18px;
+    border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--panel);
+  }
+  .modal-head h2 { font-size: 15px; margin: 0; font-weight: 650; }
+  .modal .x { background: none; border: none; color: var(--muted); font-size: 15px; cursor: pointer; }
+  .modal-body { padding: 4px 18px 16px; display: flex; flex-direction: column; }
+  .grp-title {
+    font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent-2);
+    margin: 16px 0 10px; font-weight: 650;
+  }
+  .modal label { margin-top: 10px; }
+  .modal input[type=password], .modal input[type=text] {
+    width: 100%; background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+    padding: 10px 11px; border-radius: 8px; font-size: 13px; outline: none; user-select: text;
+  }
+  .modal input:focus { border-color: var(--accent); }
+  .modal .row { margin-top: 10px; }
+  .modal-foot {
+    display: flex; gap: 10px; justify-content: space-between; align-items: center;
+    padding: 13px 18px; border-top: 1px solid var(--border); position: sticky; bottom: 0; background: var(--panel);
+  }
+  button.primary.sm { width: auto; padding: 9px 20px; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -124,15 +163,56 @@
       <button class="btn-sm" id="reveal">Show in folder</button>
       <button class="btn-sm" id="copyText">Copy text</button>
     </div>
+    <div class="result send" id="sendRow">
+      <button class="btn-sm" id="toObsidian">⬡ Send to Obsidian</button>
+      <button class="btn-sm" id="toNotion">◼ Send to Notion</button>
+    </div>
+    <div class="send-msg" id="sendMsg"></div>
   </div>
 
   <div class="foot">
     <div class="foot-actions">
+      <button class="link-btn" id="openSettings">⚙ Destinations</button>
       <button class="link-btn coffee" id="coffee">☕ Buy me a coffee</button>
       <button class="link-btn" id="checkUpdate">Check for updates</button>
     </div>
     <div class="update-msg" id="updateMsg"></div>
     <div class="foot-note">Runs entirely on your machine. No API key required. · <span id="version">v…</span></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="settingsModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Destinations</h2>
+      <button class="x" id="closeSettings" title="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="grp-title">Obsidian</div>
+      <div class="row wrap-row">
+        <button class="btn-sm" id="pickVault">Vault folder…</button>
+        <span class="out-path" id="vaultPath">Not set</span>
+      </div>
+      <label>Subfolder (optional)</label>
+      <input type="text" id="vaultSub" placeholder="e.g. Transcripts" autocomplete="off" spellcheck="false" />
+      <div class="hint">A vault is just a folder of Markdown files. Notes save here and show up in Obsidian automatically — it doesn't even need to be open.</div>
+
+      <div class="grp-title">Notion</div>
+      <label>Integration token</label>
+      <input type="password" id="notionToken" placeholder="secret_… / ntn_…" autocomplete="off" spellcheck="false" />
+      <div class="row wrap-row">
+        <select id="notionType" title="Where to add pages">
+          <option value="page">Under a page</option>
+          <option value="database">Into a database</option>
+        </select>
+        <input type="text" id="notionParent" placeholder="Paste the Notion page or database link" style="flex:1; min-width:180px;" autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="hint">Create an integration at <a id="notionHelp">notion.so/my-integrations</a>, copy its token, then open your target page/database → <b>•••</b> → <b>Connections</b> → add the integration.</div>
+    </div>
+    <div class="modal-foot">
+      <span class="hint" style="margin:0">Stored locally on this Mac.</span>
+      <button class="primary sm" id="saveSettings">Save</button>
+    </div>
   </div>
 </div>
 

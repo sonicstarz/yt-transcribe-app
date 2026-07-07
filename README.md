@@ -41,6 +41,19 @@ needs is bundled inside it.
 The footer has a **Check for updates** button (pings this repo's latest release)
 and a ☕ **Buy me a coffee** link if it saved you some time.
 
+### Send to Obsidian & Notion
+
+Open **⚙ Destinations** (footer) to connect your notes apps, then use the
+**Send to Obsidian** / **Send to Notion** buttons after a transcript finishes.
+
+- **Obsidian** — pick your vault folder (and an optional subfolder). Each
+  transcript is written as a clean Markdown note with frontmatter, so it shows
+  up in Obsidian automatically. No AI, no cloud — just a file in your vault.
+- **Notion** — create an integration at
+  [notion.so/my-integrations](https://www.notion.so/my-integrations), paste its
+  token, and give the app a page or database link (share that page/database with
+  your integration first). Each transcript becomes a Notion page.
+
 - **Captions first:** if the video has captions, you get a transcript instantly
   with no download.
 - **Whisper fallback:** no captions? It downloads the audio and transcribes

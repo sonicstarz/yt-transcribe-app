@@ -10,4 +10,9 @@ contextBridge.exposeInMainWorld("api", {
   openExternal: (u) => ipcRenderer.invoke("open-external", u),
   checkUpdate: () => ipcRenderer.invoke("check-update"),
   appVersion: () => ipcRenderer.invoke("app-version"),
+  getSettings: () => ipcRenderer.invoke("get-settings"),
+  saveSettings: (s) => ipcRenderer.invoke("save-settings", s),
+  sendObsidian: (meta) => ipcRenderer.invoke("send-obsidian", meta),
+  sendNotion: (meta) => ipcRenderer.invoke("send-notion", meta),
+  openObsidian: (uri) => ipcRenderer.invoke("open-obsidian", uri),
 });
