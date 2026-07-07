@@ -213,7 +213,7 @@ def main():
         out_file = out_dir / f"{clean_filename(title)}_transcript.pdf"
         make_pdf(title, url, paragraphs, out_file)
         progress(100)
-        emit({"type": "done", "pdf": str(out_file), "words": words, "title": title})
+        emit({"type": "done", "pdf": str(out_file), "words": words, "title": title, "text": text})
     except subprocess.CalledProcessError as e:
         emit({"type": "error", "msg": (e.stderr or str(e)).strip()[:400]})
         sys.exit(1)

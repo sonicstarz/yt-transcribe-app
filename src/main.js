@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, shell, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, shell, dialog, clipboard } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const { spawn } = require("child_process");
@@ -64,6 +64,54 @@ ipcMain.handle("open-path", async (_e, p) => {
 
 ipcMain.handle("open-file", async (_e, p) => {
   shell.openPath(p);
+});
+
+// Copy the transcript to the system clipboard.
+ipcMain.handle("copy-text", async (_e, text) => {
+  clipboard.writeText(String(text || ""));
+  return true;
+});
+
+// Open an external https link (Venmo, GitHub) in the default browser.
+ipcMain.handle("open-external", async (_e, url) => {
+  if (typeof url === "string" && /^https:\/\//i.test(url)) {
+    await shell.openExternal(url);
+    return true;
+  }
+  return false;
+});
+
+ipcMain.handle("app-version", async () => app.getVersion());
+
+// Compare dotted versions; true when `a` is strictly newer than `b`.
+function isNewer(a, b) {
+  const pa = String(a).split(".").map((n) => parseInt(n, 10) || 0);
+  const pb = String(b).split(".").map((n) => parseInt(n, 10) || 0);
+  for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+    const x = pa[i] || 0, y = pb[i] || 0;
+    if (x > y) return true;
+    if (x < y) return false;
+  }
+  return false;
+}
+
+// Ask GitHub for the latest release and compare to the running version.
+const UPDATE_REPO = "sonicstarz/yt-transcribe-app";
+ipcMain.handle("check-update", async () => {
+  const current = app.getVersion();
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${UPDATE_REPO}/releases/latest`,
+      { headers: { Accept: "application/vnd.github+json", "User-Agent": "yt-transcribe-app" } }
+    );
+    if (!res.ok) throw new Error(`GitHub returned ${res.status}`);
+    const data = await res.json();
+    const latest = String(data.tag_name || "").replace(/^v/, "");
+    const url = data.html_url || `https://github.com/${UPDATE_REPO}/releases/latest`;
+    return { current, latest, url, updateAvailable: isNewer(latest, current) };
+  } catch (err) {
+    return { current, error: err.message };
+  }
 });
 
 ipcMain.on("transcribe", (evt, args) => {

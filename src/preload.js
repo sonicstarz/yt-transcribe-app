@@ -6,4 +6,8 @@ contextBridge.exposeInMainWorld("api", {
   pickFolder: () => ipcRenderer.invoke("pick-folder"),
   revealInFolder: (p) => ipcRenderer.invoke("open-path", p),
   openFile: (p) => ipcRenderer.invoke("open-file", p),
+  copyText: (t) => ipcRenderer.invoke("copy-text", t),
+  openExternal: (u) => ipcRenderer.invoke("open-external", u),
+  checkUpdate: () => ipcRenderer.invoke("check-update"),
+  appVersion: () => ipcRenderer.invoke("app-version"),
 });

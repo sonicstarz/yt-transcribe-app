@@ -7,7 +7,7 @@
 **Paste a YouTube link → get a clean PDF transcript.**
 Runs 100% locally. No API key, no account, no sign-up.
 
-[![Download for macOS](https://img.shields.io/badge/Download-macOS%20Apple%20Silicon-ffb627?style=for-the-badge&logo=apple&logoColor=black)](https://github.com/sonicstarz/yt-transcribe-app/releases/latest/download/YT-Transcribe-1.0.0-arm64.dmg)
+[![Download for macOS](https://img.shields.io/badge/Download-macOS%20Apple%20Silicon-ffb627?style=for-the-badge&logo=apple&logoColor=black)](https://github.com/sonicstarz/yt-transcribe-app/releases/latest/download/YT-Transcribe-macOS-arm64.dmg)
 
 <sub>macOS 12+ · Apple Silicon (M1/M2/M3/M4) · ~207 MB</sub>
 
@@ -35,7 +35,11 @@ needs is bundled inside it.
 
 1. Paste a YouTube URL.
 2. (Optional) pick an output folder — defaults to your Desktop.
-3. Hit **Transcribe → PDF**. When it's done, use **Open PDF** or **Show in folder**.
+3. Hit **Transcribe → PDF**. When it's done, use **Open PDF**, **Show in folder**,
+   or **Copy text** to drop the whole transcript on your clipboard.
+
+The footer has a **Check for updates** button (pings this repo's latest release)
+and a ☕ **Buy me a coffee** link if it saved you some time.
 
 - **Captions first:** if the video has captions, you get a transcript instantly
   with no download.
